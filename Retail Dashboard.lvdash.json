@@ -1,0 +1,439 @@
+{
+  "datasets": [
+    {
+      "name": "ef1f649d",
+      "displayName": "Untitled dataset",
+      "queryLines": [
+        ""
+      ]
+    },
+    {
+      "name": "750625e4",
+      "displayName": "gold_fact_sales",
+      "config": {
+        "version": "1.1",
+        "source": "retailproject.gold.gold_fact_sales",
+        "dimensions": [
+          {
+            "name": "product_id",
+            "expr": "source.product_id",
+            "displayName": "Product Id"
+          },
+          {
+            "name": "product_name",
+            "expr": "source.product_name",
+            "displayName": "Product Name"
+          },
+          {
+            "name": "customer_id",
+            "expr": "source.customer_id",
+            "displayName": "Customer Id"
+          },
+          {
+            "name": "customer_name",
+            "expr": "source.customer_name",
+            "displayName": "Customer Name"
+          },
+          {
+            "name": "category",
+            "expr": "source.category",
+            "displayName": "Category"
+          },
+          {
+            "name": "Year",
+            "expr": "source.Year",
+            "displayName": "Year"
+          },
+          {
+            "name": "Month",
+            "expr": "source.Month",
+            "displayName": "Month"
+          },
+          {
+            "name": "order_date",
+            "expr": "source.order_date",
+            "displayName": "Order Date"
+          },
+          {
+            "name": "gender",
+            "expr": "source.gender",
+            "displayName": "Gender"
+          },
+          {
+            "name": "city",
+            "expr": "source.city",
+            "displayName": "City"
+          },
+          {
+            "name": "state",
+            "expr": "source.state",
+            "displayName": "State"
+          },
+          {
+            "name": "loyalty_points",
+            "expr": "source.loyalty_points",
+            "displayName": "Loyalty Points"
+          },
+          {
+            "name": "Total_revenue",
+            "expr": "source.Total_revenue",
+            "displayName": "Total Revenue"
+          },
+          {
+            "name": "Total_quantity",
+            "expr": "source.Total_quantity",
+            "displayName": "Total Quantity"
+          },
+          {
+            "name": "Total_orders",
+            "expr": "source.Total_orders",
+            "displayName": "Total Orders"
+          },
+          {
+            "name": "Avg_revenue",
+            "expr": "source.Avg_revenue",
+            "displayName": "Avg Revenue"
+          },
+          {
+            "name": "Avg_quantity",
+            "expr": "source.Avg_quantity",
+            "displayName": "Avg Quantity"
+          },
+          {
+            "name": "Avg_loyalty_points",
+            "expr": "source.Avg_loyalty_points",
+            "displayName": "Avg Loyalty Points"
+          },
+          {
+            "name": "Min_price",
+            "expr": "source.Min_price",
+            "displayName": "Min Price"
+          },
+          {
+            "name": "Max_price",
+            "expr": "source.Max_price",
+            "displayName": "Max Price"
+          }
+        ],
+        "measures": [
+          {
+            "name": "count",
+            "expr": "COUNT(*)",
+            "comment": "Represents the total number of rows in the dataset. Use this measure to count all",
+            "displayName": "Count"
+          }
+        ]
+      }
+    }
+  ],
+  "pages": [
+    {
+      "name": "2bde7005",
+      "displayName": "Retail Dashboad",
+      "layout": [
+        {
+          "widget": {
+            "name": "425a4e5e",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "750625e4",
+                  "fields": [
+                    {
+                      "name": "category",
+                      "expression": "`category`"
+                    },
+                    {
+                      "name": "sum(Total_revenue)",
+                      "expression": "SUM(`Total_revenue`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "category",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(Total_revenue)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "category",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "label": {
+                  "show": true
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "51962a0a",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "750625e4",
+                  "fields": [
+                    {
+                      "name": "daily(order_date)",
+                      "expression": "DATE_TRUNC(\"DAY\", `order_date`)"
+                    },
+                    {
+                      "name": "sum(Total_revenue)",
+                      "expression": "SUM(`Total_revenue`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "daily(order_date)",
+                  "scale": {
+                    "type": "temporal"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(Total_revenue)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 6,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "dd78b212",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "750625e4",
+                  "fields": [
+                    {
+                      "name": "city",
+                      "expression": "`city`"
+                    },
+                    {
+                      "name": "Total_orders",
+                      "expression": "`Total_orders`"
+                    },
+                    {
+                      "name": "Avg_loyalty_points",
+                      "expression": "`Avg_loyalty_points`"
+                    },
+                    {
+                      "name": "Total_quantity",
+                      "expression": "`Total_quantity`"
+                    },
+                    {
+                      "name": "gender",
+                      "expression": "`gender`"
+                    },
+                    {
+                      "name": "Avg_revenue",
+                      "expression": "`Avg_revenue`"
+                    },
+                    {
+                      "name": "Max_price",
+                      "expression": "`Max_price`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "table",
+              "encodings": {
+                "columns": [
+                  {
+                    "fieldName": "city"
+                  },
+                  {
+                    "fieldName": "Total_orders"
+                  },
+                  {
+                    "fieldName": "Avg_loyalty_points"
+                  },
+                  {
+                    "fieldName": "Total_quantity"
+                  },
+                  {
+                    "fieldName": "gender"
+                  },
+                  {
+                    "fieldName": "Avg_revenue"
+                  },
+                  {
+                    "fieldName": "Max_price"
+                  }
+                ]
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 12,
+            "width": 7,
+            "height": 4
+          }
+        },
+        {
+          "widget": {
+            "name": "ada8d573",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "750625e4",
+                  "fields": [
+                    {
+                      "name": "state",
+                      "expression": "`state`"
+                    },
+                    {
+                      "name": "sum(Total_revenue)",
+                      "expression": "SUM(`Total_revenue`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "Total Revenue by State",
+                "showTitle": true
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "state",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(Total_revenue)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "label": {
+                  "show": true
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 16,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "ea61ccbf",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "750625e4",
+                  "fields": [
+                    {
+                      "name": "sum(Total_orders)",
+                      "expression": "SUM(`Total_orders`)"
+                    },
+                    {
+                      "name": "category",
+                      "expression": "`category`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "Order Distribution by Category",
+                "showTitle": true
+              },
+              "widgetType": "pie",
+              "encodings": {
+                "angle": {
+                  "fieldName": "sum(Total_orders)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "category",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "label": {
+                  "show": true
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 22,
+            "width": 10,
+            "height": 6
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "layoutVersion": "GRID_V1"
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    },
+    "applyModeEnabled": false
+  }
+}
